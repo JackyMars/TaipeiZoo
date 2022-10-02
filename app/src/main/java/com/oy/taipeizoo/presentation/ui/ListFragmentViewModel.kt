@@ -21,6 +21,7 @@ constructor(
 :ViewModel() {
 
     val animals : MutableState<List<AnimalInfo>> = mutableStateOf(listOf())
+    val query = mutableStateOf("大貓熊")
 
     init {
         newSerach()
@@ -30,10 +31,13 @@ constructor(
         viewModelScope.launch {
             val result = repository.serach(
                 query = "",
-                offset = 0,
-                limit = 20
+                offset = 21,
+                limit = 40
             )
             animals.value = result
         }
+    }
+    fun onQueryChange(query:String){
+         this.query.value = query
     }
 }
