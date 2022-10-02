@@ -16,7 +16,10 @@ import androidx.compose.material.*
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalFocusManager
@@ -47,46 +50,74 @@ class ListFragment : Fragment(){
                 val query = viewModel.query.value
                 val focusManager = LocalFocusManager.current
 
+                val state = remember{mutableStateOf(0)}
+                val locations = viewModel.locations.value
                 Column{
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colors.primary,
+                        color = Color.White,
                         elevation = 8.dp
                     ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        ){
-                            TextField(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.9f)
-                                    .padding(8.dp)
-                                    .background(color = MaterialTheme.colors.surface),
-                                value = query,
-                                onValueChange = { newValue ->
-                                    viewModel.onQueryChange(newValue)
-                                },
-                                label = {
-                                    Text(text = "搜尋")
-                                },
-                                keyboardActions = KeyboardActions(
-                                    onSearch = {
-                                        focusManager.clearFocus()
+                        Column {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ){
+                                TextField(
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.9f)
+                                        .padding(8.dp)
+                                        .background(color = MaterialTheme.colors.surface),
+                                    value = query,
+                                    onValueChange = { newValue ->
+                                        viewModel.onQueryChange(newValue)
+                                    },
+                                    label = {
+                                        Text(text = "搜尋")
+                                    },
+                                    keyboardActions = KeyboardActions(
+                                        onSearch = {
+                                            viewModel.testSerach()
+                                            focusManager.clearFocus()
+                                        }
+                                    ),
+                                    keyboardOptions = KeyboardOptions.Default.copy(
+                                        imeAction = ImeAction.Search,
+                                        keyboardType = KeyboardType.Text
+                                    ),
+                                    leadingIcon = {
+                                        Icon(Icons.Filled.Search, contentDescription = "Localized description")
+                                    },
+                                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+
+
+                                    )
+
+                            }
+
+                            if(locations.size > 0){
+                                ScrollableTabRow(
+                                    selectedTabIndex = state.value,
+                                    modifier = Modifier.wrapContentWidth(),
+                                    edgePadding = 16.dp,
+                                    backgroundColor = Color.LightGray
+
+                                ) {
+                                    locations.forEachIndexed{index, location ->
+                                        Tab(
+                                            text = { Text(location.name) },
+                                            selected = state.value == index,
+                                            selectedContentColor = Color.DarkGray,
+                                            unselectedContentColor = Color.White,
+                                            onClick = {
+                                                state.value = index
+                                                viewModel.testSerach()
+                                            }
+                                        )
                                     }
-                                ),
-                                keyboardOptions = KeyboardOptions.Default.copy(
-                                    imeAction = ImeAction.Search,
-                                    keyboardType = KeyboardType.Text
-                                ),
-                                leadingIcon = {
-                                    Icon(Icons.Filled.Search, contentDescription = "Localized description")
-                                },
-                                textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
-
-
-                                )
+                                }
+                            }
 
                         }
-
 
                     }
                     LazyColumn{

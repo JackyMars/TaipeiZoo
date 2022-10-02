@@ -2,6 +2,7 @@ package com.oy.taipeizoo.di
 
 import com.oy.taipeizoo.network.RetroService
 import com.oy.taipeizoo.network.model.AnimalDtoMapper
+import com.oy.taipeizoo.network.model.AnimalLocationDtoMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,12 @@ object NetworkModule {
     @Provides
     fun provideAmimalMapper(): AnimalDtoMapper {
         return AnimalDtoMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAnimalLocationMapper():AnimalLocationDtoMapper{
+        return AnimalLocationDtoMapper()
     }
 
     @Singleton

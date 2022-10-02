@@ -7,6 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class AnimalLocationInfo (
     val id:Int,
     val no:Int,
-    val category:String?=null,
-    val name:String?=null
+    val category:String,
+    val name:String
 ): Parcelable

@@ -2,6 +2,9 @@ package com.oy.taipeizoo.di
 
 import com.oy.taipeizoo.network.RetroService
 import com.oy.taipeizoo.network.model.AnimalDtoMapper
+import com.oy.taipeizoo.network.model.AnimalLocationDtoMapper
+import com.oy.taipeizoo.repository.AnimalLocationRepository
+import com.oy.taipeizoo.repository.AnimalLocationRepositoryImpl
 import com.oy.taipeizoo.repository.AnimalRepository
 import com.oy.taipeizoo.repository.AnimalRepositoryImpl
 import dagger.Module
@@ -23,6 +26,17 @@ object RepositoryModule {
         return AnimalRepositoryImpl(
             retroService = retroService,
             mapper = animalDtoMapper
+        )
+    }
+    @Singleton
+    @Provides
+    fun provideAnimalLocationRepository(
+        retroService: RetroService,
+        animalLocationDtoMapper: AnimalLocationDtoMapper
+    ):AnimalLocationRepository{
+        return AnimalLocationRepositoryImpl(
+            retroService = retroService,
+            mapper = animalLocationDtoMapper
         )
     }
 }
