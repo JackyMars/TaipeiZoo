@@ -1,8 +1,8 @@
-package com.oy.taipeizoo.network.model
+package com.oy.taipeizoo.network.mappers
 
-import com.google.gson.annotations.SerializedName
 import com.oy.taipeizoo.domain.model.AnimalInfo
 import com.oy.taipeizoo.domain.util.DomainMapper
+import com.oy.taipeizoo.network.model.AnimalDto
 
 class AnimalDtoMapper: DomainMapper<AnimalDto, AnimalInfo> {
     override fun mapFromDomainModel(model: AnimalDto): AnimalInfo {

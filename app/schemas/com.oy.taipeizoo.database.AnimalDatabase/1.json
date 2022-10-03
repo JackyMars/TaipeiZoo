@@ -1,0 +1,150 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "542d8907ce7ac9b3dd0a3605d9268bc0",
+    "entities": [
+      {
+        "tableName": "animals",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `apiId` INTEGER NOT NULL, `name_ch` TEXT NOT NULL, `location` TEXT NOT NULL, `distribution` TEXT NOT NULL, `a_phylum` TEXT NOT NULL, `a_class` TEXT NOT NULL, `a_order` TEXT NOT NULL, `a_family` TEXT NOT NULL, `feature` TEXT NOT NULL, `behavior` TEXT NOT NULL, `diet` TEXT NOT NULL, `url` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "apiId",
+            "columnName": "apiId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_ch",
+            "columnName": "name_ch",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distribution",
+            "columnName": "distribution",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "a_phylum",
+            "columnName": "a_phylum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "a_class",
+            "columnName": "a_class",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "a_order",
+            "columnName": "a_order",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "a_family",
+            "columnName": "a_family",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feature",
+            "columnName": "feature",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "behavior",
+            "columnName": "behavior",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diet",
+            "columnName": "diet",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "animal_locations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `apiId` INTEGER NOT NULL, `no` INTEGER NOT NULL, `category` TEXT NOT NULL, `name` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "apiId",
+            "columnName": "apiId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "no",
+            "columnName": "no",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '542d8907ce7ac9b3dd0a3605d9268bc0')"
+    ]
+  }
+}

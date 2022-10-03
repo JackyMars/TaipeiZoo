@@ -20,20 +20,19 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 const val DEFAULT_IMAGE = R.drawable.no_image
 
 
+@SuppressLint("UnrememberedMutableState")
 @ExperimentalCoroutinesApi
 @Composable
 fun loadPicture(url: String, @DrawableRes defaultImage: Int): MutableState<Bitmap?> {
 
     val bitmapState: MutableState<Bitmap?> = mutableStateOf(null)
-    val replaceString:String  = url.replace("https","http").
-                                    replace("http","https").
-                                    replace(" ","%20")
-    Log.d("loadPicture", "loadPicture: ${replaceString}")
+
 
     // show default image while image loads
     Glide.with(LocalContext.current)
         .asBitmap()
         .load(defaultImage)
+        .centerCrop()
         .into(object : CustomTarget<Bitmap>() {
             override fun onLoadCleared(placeholder: Drawable?) { }
             override fun onResourceReady(
@@ -47,7 +46,9 @@ fun loadPicture(url: String, @DrawableRes defaultImage: Int): MutableState<Bitma
         // get network image
         Glide.with(LocalContext.current)
             .asBitmap()
-            .load(replaceString)
+            .load(urlConvert(url))
+            .centerCrop()
+            .error(defaultImage)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onLoadCleared(placeholder: Drawable?) { }
                 override fun onResourceReady(
@@ -84,4 +85,11 @@ fun loadPicture(@DrawableRes drawable: Int): MutableState<Bitmap?> {
         })
 
     return bitmapState
+}
+
+fun urlConvert(url: String):String{
+
+    return  url.replace("https","http").
+    replace("http","https").
+    replace(" ","%20")
 }

@@ -76,7 +76,7 @@ class ListFragment : Fragment(){
                                     },
                                     keyboardActions = KeyboardActions(
                                         onSearch = {
-                                            viewModel.testSerach()
+                                            viewModel.QueryByLocation(query)
                                             focusManager.clearFocus()
                                         }
                                     ),
@@ -110,7 +110,7 @@ class ListFragment : Fragment(){
                                             unselectedContentColor = Color.White,
                                             onClick = {
                                                 state.value = index
-                                                viewModel.testSerach()
+                                                viewModel.QueryByLocation(location.name)
                                             }
                                         )
                                     }

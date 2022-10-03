@@ -1,8 +1,8 @@
-package com.oy.taipeizoo.network.model
+package com.oy.taipeizoo.network.mappers
 
-import com.oy.taipeizoo.domain.model.AnimalInfo
 import com.oy.taipeizoo.domain.model.AnimalLocationInfo
 import com.oy.taipeizoo.domain.util.DomainMapper
+import com.oy.taipeizoo.network.model.AnimalLocationDto
 
 class AnimalLocationDtoMapper:DomainMapper<AnimalLocationDto,AnimalLocationInfo> {
     override fun mapFromDomainModel(model: AnimalLocationDto): AnimalLocationInfo {

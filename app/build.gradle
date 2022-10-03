@@ -15,9 +15,17 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"]
+            }
+        }
     }
 
     buildTypes {
@@ -101,6 +109,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide"
     kapt "com.github.bumptech.glide:compiler:$glide"
 
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
 //
 //    //RecyclerView 也ViewGroup，處理列表式的資料，重複利用已經存在的 View
