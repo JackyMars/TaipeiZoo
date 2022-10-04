@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.oy.taipeizoo.R
 import com.oy.taipeizoo.presentation.components.AnimalCard
+import com.oy.taipeizoo.presentation.components.SearchAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,78 +49,21 @@ class ListFragment : Fragment(){
 
                 val animals = viewModel.animals.value
                 val query = viewModel.query.value
-                val focusManager = LocalFocusManager.current
 
+                val focusManager = LocalFocusManager.current
                 val state = remember{mutableStateOf(0)}
                 val locations = viewModel.locations.value
+
                 Column{
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Color.White,
-                        elevation = 8.dp
-                    ) {
-                        Column {
-                            Row(
-                                modifier = Modifier.fillMaxWidth()
-                            ){
-                                TextField(
-                                    modifier = Modifier
-                                        .fillMaxWidth(0.9f)
-                                        .padding(8.dp)
-                                        .background(color = MaterialTheme.colors.surface),
-                                    value = query,
-                                    onValueChange = { newValue ->
-                                        viewModel.onQueryChange(newValue)
-                                    },
-                                    label = {
-                                        Text(text = "搜尋")
-                                    },
-                                    keyboardActions = KeyboardActions(
-                                        onSearch = {
-                                            viewModel.QueryByLocation(query)
-                                            focusManager.clearFocus()
-                                        }
-                                    ),
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        imeAction = ImeAction.Search,
-                                        keyboardType = KeyboardType.Text
-                                    ),
-                                    leadingIcon = {
-                                        Icon(Icons.Filled.Search, contentDescription = "Localized description")
-                                    },
-                                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
-
-
-                                    )
-
-                            }
-
-                            if(locations.size > 0){
-                                ScrollableTabRow(
-                                    selectedTabIndex = state.value,
-                                    modifier = Modifier.wrapContentWidth(),
-                                    edgePadding = 16.dp,
-                                    backgroundColor = Color.LightGray
-
-                                ) {
-                                    locations.forEachIndexed{index, location ->
-                                        Tab(
-                                            text = { Text(location.name) },
-                                            selected = state.value == index,
-                                            selectedContentColor = Color.DarkGray,
-                                            unselectedContentColor = Color.White,
-                                            onClick = {
-                                                state.value = index
-                                                viewModel.onSelectedLocation(location.name)
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-
-                        }
-
-                    }
+                    SearchAppBar(
+                        query = query,
+                        onQueryChange =  viewModel::onQueryChange,
+                        QueryByLocation = viewModel::QueryByLocation,
+                        locations =  locations,
+                        state = state,
+                        focusManager = focusManager,
+                        onSelectedLocation= viewModel::onSelectedLocation
+                    )
                     LazyColumn{
                         itemsIndexed(
                             items = animals
