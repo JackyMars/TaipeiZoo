@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.oy.taipeizoo.R
 import com.oy.taipeizoo.presentation.components.AnimalCard
+import com.oy.taipeizoo.presentation.components.CircularIndeterminateProgressBar
 import com.oy.taipeizoo.presentation.components.SearchAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,8 +52,10 @@ class ListFragment : Fragment(){
                 val query = viewModel.query.value
 
                 val focusManager = LocalFocusManager.current
-                val state = remember{mutableStateOf(0)}
+                val state = remember { mutableStateOf(0)}
                 val locations = viewModel.locations.value
+                val loading = viewModel.loading.value
+
 
                 Column{
                     SearchAppBar(
@@ -64,6 +67,8 @@ class ListFragment : Fragment(){
                         focusManager = focusManager,
                         onSelectedLocation= viewModel::onSelectedLocation
                     )
+                    CircularIndeterminateProgressBar(isDisplayed = loading)
+
                     LazyColumn{
                         itemsIndexed(
                             items = animals

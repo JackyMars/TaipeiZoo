@@ -1,7 +1,9 @@
 package com.oy.taipeizoo.presentation.ui
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oy.taipeizoo.domain.model.AnimalInfo
@@ -12,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -27,32 +30,46 @@ constructor(
     val animals : MutableState<List<AnimalInfo>> = mutableStateOf(listOf())
     val locations:MutableState<List<AnimalLocationInfo>> = mutableStateOf(listOf())
     val query = mutableStateOf("臺灣動物區")
-
+    val loading = mutableStateOf(false)
 
     init {
         getApiDataAndInsertDb()
         getLocation()
-//        QueryByLocation(query.value)
+//        QueryByLocation("臺灣動物區")
     }
 
     fun getApiDataAndInsertDb(){
         viewModelScope.launch {
+            loading.value = true
+            reSet()
+            delay(2000)
+
             val result = repository.serach(
                 query = query.value,
                 offset = 0,
                 limit = 300
             )
-            delay(1000)
-//            animals.value = result
+
             repository.insertAnimals(result)
+
+            loading.value = false
         }
     }
     fun QueryByLocation(location:String){
+
         viewModelScope.launch(Dispatchers.IO) {
+            loading.value = true
+
             val result = repository.findAnimalsByLocation(
                 location = location
             )
             animals.value  = result
+
+            for(animal in animals.value){
+                Log.d("APPDEBUG", "QueryByLocation: ${animal.name_ch}")
+            }
+
+            loading.value = false
         }
     }
     fun onQueryChange(query:String){
@@ -60,12 +77,18 @@ constructor(
     }
     fun getLocation(){
         viewModelScope.launch {
+
             var result = repository_location.get()
+
             locations.value = result
+
         }
     }
     fun onSelectedLocation(location: String){
         QueryByLocation(location)
         onQueryChange(location)
+    }
+    private fun reSet(){
+        animals.value = listOf()
     }
 }
