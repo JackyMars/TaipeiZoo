@@ -20,7 +20,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAmimalMapper(): AnimalDtoMapper {
+    fun provideAnimalMapper(): AnimalDtoMapper {
         return AnimalDtoMapper()
     }
 

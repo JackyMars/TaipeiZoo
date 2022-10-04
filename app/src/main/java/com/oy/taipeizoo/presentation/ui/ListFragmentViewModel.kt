@@ -10,6 +10,7 @@ import com.oy.taipeizoo.repository.AnimalLocationRepository
 import com.oy.taipeizoo.repository.AnimalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ constructor(
     val locations:MutableState<List<AnimalLocationInfo>> = mutableStateOf(listOf())
     val query = mutableStateOf("臺灣動物區")
 
+
     init {
         getApiDataAndInsertDb()
         getLocation()
@@ -40,13 +42,16 @@ constructor(
                 offset = 0,
                 limit = 300
             )
+            delay(1000)
 //            animals.value = result
             repository.insertAnimals(result)
         }
     }
     fun QueryByLocation(location:String){
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.findAnimalsByLocation(location = location)
+            val result = repository.findAnimalsByLocation(
+                location = location
+            )
             animals.value  = result
         }
     }
@@ -58,5 +63,9 @@ constructor(
             var result = repository_location.get()
             locations.value = result
         }
+    }
+    fun onSelectedLocation(location: String){
+        QueryByLocation(location)
+        onQueryChange(location)
     }
 }

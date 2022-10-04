@@ -110,7 +110,7 @@ class ListFragment : Fragment(){
                                             unselectedContentColor = Color.White,
                                             onClick = {
                                                 state.value = index
-                                                viewModel.QueryByLocation(location.name)
+                                                viewModel.onSelectedLocation(location.name)
                                             }
                                         )
                                     }
