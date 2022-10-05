@@ -26,7 +26,7 @@ fun SearchAppBar(
     onQueryChange: (String) -> Unit,
     QueryByLocation: (String) -> Unit,
     locations:  List<AnimalLocationInfo>,
-    state: MutableState<Int>,
+    state: MutableState<Int?>,
     focusManager: FocusManager,
     onSelectedLocation: (String) -> Unit
 
@@ -76,7 +76,7 @@ fun SearchAppBar(
 
             if(locations.size > 0){
                 ScrollableTabRow(
-                    selectedTabIndex = state.value,
+                    selectedTabIndex = state.value?:0,
                     modifier = Modifier.wrapContentWidth(),
                     edgePadding = 16.dp,
                     backgroundColor = Color.LightGray

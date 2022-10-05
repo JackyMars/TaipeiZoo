@@ -29,12 +29,15 @@ constructor(
 
     val animals : MutableState<List<AnimalInfo>> = mutableStateOf(listOf())
     val locations:MutableState<List<AnimalLocationInfo>> = mutableStateOf(listOf())
-    val query = mutableStateOf("臺灣動物區")
+    val query = mutableStateOf("")
     val loading = mutableStateOf(false)
+
+    val selectedLocation : MutableState<Int?> = mutableStateOf(null)
 
     init {
         getApiDataAndInsertDb()
         getLocation()
+
 //        QueryByLocation("臺灣動物區")
     }
 
@@ -49,7 +52,7 @@ constructor(
                 offset = 0,
                 limit = 300
             )
-
+            animals.value = result
             repository.insertAnimals(result)
 
             loading.value = false
@@ -90,5 +93,9 @@ constructor(
     }
     private fun reSet(){
         animals.value = listOf()
+        clearSelectedLocation()
+    }
+    private fun clearSelectedLocation(){
+        selectedLocation.value = null
     }
 }

@@ -52,10 +52,9 @@ class ListFragment : Fragment(){
                 val query = viewModel.query.value
 
                 val focusManager = LocalFocusManager.current
-                val state = remember { mutableStateOf(0)}
+                val state = viewModel.selectedLocation
                 val locations = viewModel.locations.value
                 val loading = viewModel.loading.value
-
 
                 Column{
                     SearchAppBar(
