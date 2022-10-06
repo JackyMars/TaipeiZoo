@@ -47,6 +47,7 @@ class ListFragment : Fragment(){
                     SearchAppBar(
                         query = query,
                         onExecuteSearch = {viewModel.onTriggerEvent(queryByLocationEvent)},
+                        onExecuteSearchName = {viewModel.onTriggerEvent(queryByNameEvent)},
                         onQueryChange =  viewModel::onQueryChange,
                         onLocationChange = viewModel::onLocationChange ,
                         locations =  locations,

@@ -18,5 +18,5 @@ interface AnimalRepository {
 
     suspend fun findAnimalById(id:Int): AnimalInfo
 
-    suspend fun findAnimalByName(name:String):AnimalInfo
+    suspend fun findAnimalByName(name:String):List<AnimalInfo>
 }

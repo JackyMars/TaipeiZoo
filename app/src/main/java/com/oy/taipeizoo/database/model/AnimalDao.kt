@@ -35,6 +35,6 @@ interface AnimalDao {
     suspend fun findAnimalById(id:Int):AnimalEntity
 
     @Query("SELECT * FROM animals WHERE name_ch LIKE '%' || :name || '%'")
-    suspend fun findAnimalByName(name:String):AnimalEntity
+    suspend fun findAnimalByName(name:String):List<AnimalEntity>
 
 }

@@ -24,6 +24,7 @@ import com.oy.taipeizoo.domain.model.AnimalLocationInfo
 fun SearchAppBar(
     query: String,
     onExecuteSearch: () -> Unit,
+    onExecuteSearchName: () -> Unit,
     onQueryChange: (String) -> Unit,
     onLocationChange: (String) -> Unit,
     locations:  List<AnimalLocationInfo>,
@@ -50,14 +51,15 @@ fun SearchAppBar(
                     value = query,
                     onValueChange = { newValue ->
                         onQueryChange(newValue)
+                        onExecuteSearchName()
                     },
                     label = {
                         Text(text = "搜尋")
                     },
                     keyboardActions = KeyboardActions(
                         onSearch = {
-                            onLocationChange(query)
-                            onExecuteSearch()
+                            onQueryChange(query)
+                            onExecuteSearchName()
                             focusManager.clearFocus()
                         }
                     ),

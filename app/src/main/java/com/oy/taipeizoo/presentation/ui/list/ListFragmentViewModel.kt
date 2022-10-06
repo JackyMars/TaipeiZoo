@@ -66,7 +66,7 @@ constructor(
                         queryByLocation()
                     }
                     is queryByNameEvent -> {
-                            //to do
+                        queryByName()
                     }
                 }
             }catch (e:Exception){
@@ -107,6 +107,22 @@ constructor(
         loading.value = false
 
     }
+    private suspend fun queryByName(){
+
+        Log.d("APPDEBUG", "queryByName: ${query.value}")
+
+        loading.value = true
+        val result = repository.findAnimalByName(
+            name = query.value
+        )
+        for(item in result){
+            Log.d("APPDEBUG", "queryByName: ${item.name_ch}")
+        }
+
+        animals.value = result
+
+        loading.value = false
+    }
     private suspend fun getLocation(){
 
         var result = repository_location.get()
@@ -115,11 +131,9 @@ constructor(
 
     }
     fun onQueryChange(query:String){
-        Log.d("APPDEBUG", "onQueryChange: ${query}")
         setQuery(query)
     }
     fun onLocationChange(location: String){
-        Log.d("APPDEBUG", "onLocationChange: ${location}")
         setLocation(location)
     }
 
