@@ -29,6 +29,7 @@ constructor(
     val loading = mutableStateOf(false)
 
     init {
+
         savedStateHandle.get<Int>(STATE_KEY_ANIMAL)?.let{ animalId ->
             onTriggerEvent(GetAnimalEvent(animalId))
         }

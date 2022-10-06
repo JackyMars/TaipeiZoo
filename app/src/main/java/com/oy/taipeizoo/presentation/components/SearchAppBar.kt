@@ -23,12 +23,12 @@ import com.oy.taipeizoo.domain.model.AnimalLocationInfo
 @Composable
 fun SearchAppBar(
     query: String,
+    onExecuteSearch: () -> Unit,
     onQueryChange: (String) -> Unit,
-    QueryByLocation: (String) -> Unit,
+    onLocationChange: (String) -> Unit,
     locations:  List<AnimalLocationInfo>,
     state: MutableState<Int?>,
-    focusManager: FocusManager,
-    onSelectedLocation: (String) -> Unit
+    focusManager: FocusManager
 
 ) {
     Surface(
@@ -56,7 +56,8 @@ fun SearchAppBar(
                     },
                     keyboardActions = KeyboardActions(
                         onSearch = {
-                            QueryByLocation(query)
+                            onLocationChange(query)
+                            onExecuteSearch()
                             focusManager.clearFocus()
                         }
                     ),
@@ -90,7 +91,9 @@ fun SearchAppBar(
                             unselectedContentColor = Color.White,
                             onClick = {
                                 state.value = index
-                                onSelectedLocation(location.name)
+                                onLocationChange(location.name)
+                                onQueryChange(location.name)
+                                onExecuteSearch()
                             }
                         )
                     }

@@ -26,10 +26,10 @@ interface AnimalDao {
     suspend fun insertAnimals(animals:List<AnimalEntity>):LongArray
 
     @Query("SELECT * FROM animals ORDER BY apiId ASC")
-    fun readAnimals():List<AnimalEntity>
+    suspend fun readAnimals():List<AnimalEntity>
 
     @Query("SELECT * FROM animals WHERE location LIKE '%' || :location || '%'")
-    fun findAnimalsByLocation(location:String):List<AnimalEntity>
+    suspend fun findAnimalsByLocation(location:String):List<AnimalEntity>
 
     @Query("SELECT * FROM animals WHERE apiId = :id")
     suspend fun findAnimalById(id:Int):AnimalEntity

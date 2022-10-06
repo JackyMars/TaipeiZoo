@@ -29,11 +29,11 @@ class AnimalRepositoryImpl
         return animalDao.insertAnimals(mapperDao.fromDomainList(animals))
     }
 
-    override fun readAnimals(): List<AnimalInfo> {
+    override suspend fun readAnimals(): List<AnimalInfo> {
         return mapperDao.toDomainList(animalDao.readAnimals())
     }
 
-    override fun findAnimalsByLocation(location: String): List<AnimalInfo> {
+    override suspend fun findAnimalsByLocation(location: String): List<AnimalInfo> {
         return mapperDao.toDomainList(animalDao.findAnimalsByLocation(location))
     }
 

@@ -12,9 +12,9 @@ interface AnimalRepository {
 
     suspend fun insertAnimals(animals: List<AnimalInfo>): LongArray
 
-    fun readAnimals():List<AnimalInfo>
+    suspend fun readAnimals():List<AnimalInfo>
 
-    fun findAnimalsByLocation(location:String):List<AnimalInfo>
+    suspend fun findAnimalsByLocation(location:String):List<AnimalInfo>
 
     suspend fun findAnimalById(id:Int): AnimalInfo
 

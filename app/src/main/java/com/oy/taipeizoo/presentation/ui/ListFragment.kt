@@ -17,8 +17,10 @@ import com.oy.taipeizoo.R
 import com.oy.taipeizoo.presentation.components.AnimalCard
 import com.oy.taipeizoo.presentation.components.CircularIndeterminateProgressBar
 import com.oy.taipeizoo.presentation.components.SearchAppBar
+import com.oy.taipeizoo.presentation.ui.list.ListEvent
 import com.oy.taipeizoo.presentation.ui.list.ListFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import com.oy.taipeizoo.presentation.ui.list.ListEvent.*
 
 @AndroidEntryPoint
 class ListFragment : Fragment(){
@@ -44,12 +46,12 @@ class ListFragment : Fragment(){
                 Column{
                     SearchAppBar(
                         query = query,
+                        onExecuteSearch = {viewModel.onTriggerEvent(queryByLocationEvent)},
                         onQueryChange =  viewModel::onQueryChange,
-                        QueryByLocation = viewModel::QueryByLocation,
+                        onLocationChange = viewModel::onLocationChange ,
                         locations =  locations,
                         state = state,
-                        focusManager = focusManager,
-                        onSelectedLocation= viewModel::onSelectedLocation
+                        focusManager = focusManager
                     )
                     CircularIndeterminateProgressBar(isDisplayed = loading)
 
