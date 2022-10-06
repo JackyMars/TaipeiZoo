@@ -37,4 +37,12 @@ class AnimalRepositoryImpl
         return mapperDao.toDomainList(animalDao.findAnimalsByLocation(location))
     }
 
+    override suspend fun findAnimalById(id: Int): AnimalInfo {
+        return mapperDao.mapFromDomainModel(animalDao.findAnimalById(id))
+    }
+
+    override suspend fun findAnimalByName(name: String): AnimalInfo {
+        return mapperDao.mapFromDomainModel(animalDao.findAnimalByName(name))
+    }
+
 }

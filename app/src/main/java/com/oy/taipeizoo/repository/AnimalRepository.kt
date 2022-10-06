@@ -1,5 +1,6 @@
 package com.oy.taipeizoo.repository
 
+import com.oy.taipeizoo.database.model.AnimalEntity
 import com.oy.taipeizoo.domain.model.AnimalInfo
 
 
@@ -14,4 +15,8 @@ interface AnimalRepository {
     fun readAnimals():List<AnimalInfo>
 
     fun findAnimalsByLocation(location:String):List<AnimalInfo>
+
+    suspend fun findAnimalById(id:Int): AnimalInfo
+
+    suspend fun findAnimalByName(name:String):AnimalInfo
 }

@@ -28,8 +28,13 @@ interface AnimalDao {
     @Query("SELECT * FROM animals ORDER BY apiId ASC")
     fun readAnimals():List<AnimalEntity>
 
-    @Query("SELECT * FROM animals WHERE location LIKE :location")
+    @Query("SELECT * FROM animals WHERE location LIKE '%' || :location || '%'")
     fun findAnimalsByLocation(location:String):List<AnimalEntity>
 
+    @Query("SELECT * FROM animals WHERE apiId = :id")
+    suspend fun findAnimalById(id:Int):AnimalEntity
+
+    @Query("SELECT * FROM animals WHERE name_ch LIKE '%' || :name || '%'")
+    suspend fun findAnimalByName(name:String):AnimalEntity
 
 }

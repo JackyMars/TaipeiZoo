@@ -1,4 +1,4 @@
-package com.oy.taipeizoo.presentation.ui
+package com.oy.taipeizoo.presentation.ui.list
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
 
 @HiltViewModel
@@ -69,9 +70,9 @@ constructor(
             animals.value  = result
 
             for(animal in animals.value){
-                Log.d("APPDEBUG", "QueryByLocation: ${animal.name_ch}")
+                Log.d("APPDEBUG", "QueryByLocation:  ${animal.name_ch}")
             }
-
+            Log.d("APPDEBUG", "QueryByLocationCount: ${animals.value.size}")
             loading.value = false
         }
     }
