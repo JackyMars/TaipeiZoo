@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.oy.taipeizoo.presentation.ui.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 </navigation>

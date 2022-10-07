@@ -8,7 +8,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
@@ -16,8 +18,10 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.oy.taipeizoo.presentation.components.AnimalDetail
 import com.oy.taipeizoo.presentation.components.CircularIndeterminateProgressBar
+import com.oy.taipeizoo.presentation.components.DetailTopBar
 import com.oy.taipeizoo.presentation.ui.deatil.DetailEvent
 import com.oy.taipeizoo.presentation.ui.deatil.DetailFragmentViewModel
 import com.oy.taipeizoo.util.DEFAULT_IMAGE
@@ -53,14 +57,27 @@ class DetailFragment :Fragment() {
 
                 val animal = viewModel.animal.value
 
-                if (loading && animal == null) {
-                    CircularIndeterminateProgressBar(isDisplayed = loading)
-                }else{
-                    animal?.let {
-                        AnimalDetail(it)
-                    }
+                val scaffoldState = rememberScaffoldState()
 
+                Scaffold(
+                    topBar = {
+                        DetailTopBar(
+                            navigationController = findNavController()
+                        )
+                    },
+                    scaffoldState = scaffoldState
+                ){
+
+                    if (loading && animal == null) {
+                        CircularIndeterminateProgressBar(isDisplayed = loading)
+                    }else{
+                        animal?.let {
+                            AnimalDetail(it)
+                        }
+
+                    }
                 }
+
             }
         }
     }
