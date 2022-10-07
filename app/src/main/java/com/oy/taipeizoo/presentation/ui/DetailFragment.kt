@@ -69,7 +69,7 @@ class DetailFragment :Fragment() {
                 ){
 
                     if (loading && animal == null) {
-                        CircularIndeterminateProgressBar(isDisplayed = loading)
+                        CircularIndeterminateProgressBar(isDisplayed = loading,verticalBias=0.5f)
                     }else{
                         animal?.let {
                             AnimalDetail(it)

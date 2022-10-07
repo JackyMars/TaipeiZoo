@@ -47,7 +47,7 @@ fun loadPicture(url: String, @DrawableRes defaultImage: Int): MutableState<Bitma
         Glide.with(LocalContext.current)
             .asBitmap()
             .load(urlConvert(url))
-            .centerCrop()
+            .centerInside()
             .error(defaultImage)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onLoadCleared(placeholder: Drawable?) { }
@@ -58,6 +58,8 @@ fun loadPicture(url: String, @DrawableRes defaultImage: Int): MutableState<Bitma
                     bitmapState.value = resource
                 }
             })
+
+
 
     return bitmapState
 }
