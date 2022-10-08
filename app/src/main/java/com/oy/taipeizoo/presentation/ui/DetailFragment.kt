@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.oy.taipeizoo.presentation.components.AnimalDetail
 import com.oy.taipeizoo.presentation.components.CircularIndeterminateProgressBar
 import com.oy.taipeizoo.presentation.components.DetailTopBar
+import com.oy.taipeizoo.presentation.components.LoadingAnimalShimmer
 import com.oy.taipeizoo.presentation.ui.deatil.DetailEvent
 import com.oy.taipeizoo.presentation.ui.deatil.DetailFragmentViewModel
 import com.oy.taipeizoo.util.DEFAULT_IMAGE
@@ -67,15 +68,19 @@ class DetailFragment :Fragment() {
                     },
                     scaffoldState = scaffoldState
                 ){
+                    Box(modifier = Modifier.fillMaxSize()){
+                        if (loading && animal == null) {
+                            LoadingAnimalShimmer(IMAGE_HEIGHT.dp)
+                        }else{
+                            animal?.let {
+                                AnimalDetail(it)
+                            }
 
-                    if (loading && animal == null) {
-                        CircularIndeterminateProgressBar(isDisplayed = loading,verticalBias=0.5f)
-                    }else{
-                        animal?.let {
-                            AnimalDetail(it)
                         }
-
+                        CircularIndeterminateProgressBar(isDisplayed = loading,verticalBias=0.5f)
                     }
+
+
                 }
 
             }
