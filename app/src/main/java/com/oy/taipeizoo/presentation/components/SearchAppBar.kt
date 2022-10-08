@@ -44,6 +44,7 @@ fun SearchAppBar(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ){
+
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
@@ -72,27 +73,38 @@ fun SearchAppBar(
                         Icon(Icons.Filled.Search, contentDescription = "Localized description")
                     },
                     textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colors.surface,
+                        focusedIndicatorColor = Color.LightGray,
+                        focusedLabelColor = Color.DarkGray,
+                        cursorColor = Color.Black
+
+                    )
 
 
                     )
-                    Box(
-                        modifier = Modifier.weight(1f).padding(top = 8.dp, end = 5.dp)
-                     ){
-                        IconButton(onClick = { showMenu.value = !showMenu.value }) {
-                            Icon(Icons.Default.MoreVert, "")
-                        }
-                        DropdownMenu(
-                            expanded = showMenu.value,
-                            onDismissRequest = { showMenu.value = false }) {
-                            DropdownMenuItem(onClick = { }) {
-                                Text(text = "版本號:" + BuildConfig.VERSION_NAME)
-                        }
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(top = 8.dp, end = 5.dp)
+                 ){
+                    IconButton(onClick = { showMenu.value = !showMenu.value }) {
+                        Icon(Icons.Default.MoreVert, "")
+                    }
+                    DropdownMenu(
+                        expanded = showMenu.value,
+                        onDismissRequest = { showMenu.value = false }) {
+                        DropdownMenuItem(onClick = { }) {
+                            Text(text = "版本號:" + BuildConfig.VERSION_NAME)
                     }
                 }
+            }
 
             }
 
             if(locations.size > 0){
+
                 ScrollableTabRow(
                     selectedTabIndex = state.value?:0,
                     modifier = Modifier.wrapContentWidth(),
@@ -115,6 +127,7 @@ fun SearchAppBar(
                         )
                     }
                 }
+
             }
 
         }
