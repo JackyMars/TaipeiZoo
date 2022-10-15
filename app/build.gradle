@@ -68,10 +68,7 @@ dependencies {
 
     def material = "1.4.0"
     implementation "com.google.android.material:material:$material"
-
-    def constraint_layout = "2.1.0"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
-
+    
     def androidx_ui = "1.0.0-alpha07"
     implementation "androidx.ui:ui-tooling:$androidx_ui"
 
@@ -82,6 +79,9 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
+    def constraint_layout = "2.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
 
     def compose_constraint = "1.0.0-beta02"
     implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraint"
